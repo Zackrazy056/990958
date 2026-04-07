@@ -1,0 +1,8 @@
+Ringdown fitting demo
+True parameters vs recovered parameters:
+amplitude: true=1.000000, fit=1.001910, sigma_fit=4.945154e-03
+alpha: true=-0.120000, fit=-0.120548, sigma_fit=7.288825e-04
+beta: true=2.450000, fit=2.450382, sigma_fit=7.563359e-04
+phase: true=0.350000, fit=0.353424, sigma_fit=5.346148e-03
+
+Recovered complex frequency = -0.120548+2.450382i

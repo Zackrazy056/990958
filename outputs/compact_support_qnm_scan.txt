@@ -1,0 +1,8 @@
+Compact-support QNM scan summary
+height = 12.0
+width = 1.0
+domain = 3.0
+
+Candidate minima of |W(s)|:
+1. s = -0.85244+2.32727i, W = +7.52942e-02+1.00544e-01i, |W| = 1.25612e-01
+2. s = -2.17073+3.75273i, W = -5.28073e-01+7.26413e-01i, |W| = 8.98074e-01

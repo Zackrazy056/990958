@@ -1,0 +1,6 @@
+Time-domain wave evolution summary
+observer_x = 8.000
+fit_window = [18.000, 35.978]
+fitted_alpha = -0.200032
+fitted_beta = 1.878604
+fitted_complex_s = -0.200032+1.878604i

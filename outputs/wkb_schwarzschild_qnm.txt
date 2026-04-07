@@ -1,0 +1,9 @@
+Schwarzschild first-order WKB estimate
+ell = 2, n = 0
+peak_rstar = 2.388982
+V0 = 0.151287
+V0_pp = -0.007946
+WKB omega M = 0.396976-0.079391i
+Literature omega M = 0.373670-0.088960i
+absolute_error = 2.519358e-02
+relative_error = 6.558891e-02

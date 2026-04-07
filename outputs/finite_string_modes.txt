@@ -1,0 +1,8 @@
+Finite string mode summary
+L = 1.0
+c = 1.0
+
+n=1: omega_num=3.141578, omega_exact=3.141593, rel_err=4.600e-06
+n=2: omega_num=6.283070, omega_exact=6.283185, rel_err=1.840e-05
+n=3: omega_num=9.424388, omega_exact=9.424778, rel_err=4.140e-05
+n=4: omega_num=12.565446, omega_exact=12.566371, rel_err=7.360e-05

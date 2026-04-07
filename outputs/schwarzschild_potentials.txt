@@ -1,0 +1,5 @@
+Schwarzschild potential summary
+ell = 2
+RW peak at r = 3.279104, Vmax = 0.151287
+Zerilli peak at r = 3.099232, Vmax = 0.151311
+The peak sits close to the photon sphere at r = 3M.

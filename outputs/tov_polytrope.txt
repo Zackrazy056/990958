@@ -1,0 +1,6 @@
+TOV relativistic polytrope summary
+K = 100.0
+Gamma = 2.0
+max_mass = 1.081664 Msun
+radius_at_max_mass = 8.444038 km
+central_rest_density_at_max_mass = 2.200000e-03
