@@ -1,0 +1,9 @@
+Black-hole parameter estimation using paper equations (67) and (68)
+synthetic_true_mass_msun = 18.000000
+synthetic_true_spin = 0.720000
+synthetic_observed_frequency_hz = 1023.194609
+synthetic_observed_tau_ms = 0.197863
+recovered_mass_msun = 18.000000
+recovered_spin = 0.720000
+mass_abs_error = 2.486900e-13
+spin_abs_error = 1.687539e-14

@@ -22,6 +22,15 @@ The goal is not only to "reproduce numbers", but to build a full understanding o
 
 ## Main Documents
 
+- [QNM论文多轮交互讲解与能力训练方案.md](C:/Users/97747/GW%20QNM%20EMRI%20PROJECT/9909/QNM论文多轮交互讲解与能力训练方案.md)
+- [第00到01轮_概念基础讲义.md](C:/Users/97747/GW%20QNM%20EMRI%20PROJECT/9909/docs/第00到01轮_概念基础讲义.md)
+- [第2轮_Laplace变换_Green函数与QNM极点_原论文讲解.md](C:/Users/97747/GW%20QNM%20EMRI%20PROJECT/9909/第2轮_Laplace变换_Green函数与QNM极点_原论文讲解.md)
+- [第03轮_晚时间行为_tail与QNM适用边界.md](C:/Users/97747/GW%20QNM%20EMRI%20PROJECT/9909/docs/第03轮_晚时间行为_tail与QNM适用边界.md)
+- [第04到06轮_黑洞QNM讲义.md](C:/Users/97747/GW%20QNM%20EMRI%20PROJECT/9909/docs/第04到06轮_黑洞QNM讲义.md)
+- [第07到11轮_中子星QNM讲义.md](C:/Users/97747/GW%20QNM%20EMRI%20PROJECT/9909/docs/第07到11轮_中子星QNM讲义.md)
+- [第12到14轮_激发探测数值方法与统一视角.md](C:/Users/97747/GW%20QNM%20EMRI%20PROJECT/9909/docs/第12到14轮_激发探测数值方法与统一视角.md)
+- [数值复现总指南.md](C:/Users/97747/GW%20QNM%20EMRI%20PROJECT/9909/docs/数值复现总指南.md)
+- [论文覆盖审计与改进报告.md](C:/Users/97747/GW%20QNM%20EMRI%20PROJECT/9909/docs/论文覆盖审计与改进报告.md)
 
 ## Scripts
 
@@ -43,6 +52,12 @@ The goal is not only to "reproduce numbers", but to build a full understanding o
   Conceptual Bromwich contour and pole sketch.
 - [run_all_reproductions.py](C:/Users/97747/GW%20QNM%20EMRI%20PROJECT/9909/scripts/run_all_reproductions.py)
   Convenience runner for the full educational script set.
+- [tail_comparison.py](C:/Users/97747/GW%20QNM%20EMRI%20PROJECT/9909/scripts/tail_comparison.py)
+  Compare compact-support and long-range late-time behavior.
+- [black_hole_parameter_estimation.py](C:/Users/97747/GW%20QNM%20EMRI%20PROJECT/9909/scripts/black_hole_parameter_estimation.py)
+  Use the paper's Kerr ringdown fits to recover mass and spin.
+- [neutron_star_empirical_relations.py](C:/Users/97747/GW%20QNM%20EMRI%20PROJECT/9909/scripts/neutron_star_empirical_relations.py)
+  Recreate the paper's neutron-star empirical frequency relations.
 
 ## Quick Start
 

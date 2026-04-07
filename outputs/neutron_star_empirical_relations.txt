@@ -1,0 +1,9 @@
+Neutron-star empirical relations using paper equations (69) and (70)
+synthetic_true_mass_msun = 1.620000
+synthetic_true_radius_km = 11.400000
+synthetic_f_mode_khz = 2.224954
+synthetic_w_mode_khz = 10.212769
+best_grid_mass_msun = 1.618868
+best_grid_radius_km = 11.396648
+mass_abs_error = 1.132075e-03
+radius_abs_error = 3.351955e-03

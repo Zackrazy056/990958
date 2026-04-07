@@ -1,0 +1,3 @@
+Tail comparison summary
+The compact-support potential usually shows a cleaner exponentially damped window.
+The long-range potential is included as a toy model for the paper's warning that slow decay can modify the late-time asymptotics.
