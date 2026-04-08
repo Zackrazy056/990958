@@ -3,72 +3,18 @@ from pathlib import Path
 
 import matplotlib.pyplot as plt
 import numpy as np
-from scipy.ndimage import minimum_filter
+
+from compact_support_qnm_common import (
+    CompactSupportConfig,
+    compact_support_potential,
+    find_local_minima,
+    scan_wronskian_grid,
+)
 
 
 ROOT = Path(__file__).resolve().parents[1]
 OUTPUT = ROOT / "outputs"
 OUTPUT.mkdir(exist_ok=True)
-
-
-def compact_support_potential(x: np.ndarray, height: float = 12.0, width: float = 1.0) -> np.ndarray:
-    y = np.zeros_like(x, dtype=float)
-    mask = np.abs(x) < width
-    z = x[mask] / width
-    y[mask] = height * np.exp(-1.0 / (1.0 - z**2))
-    return y
-
-
-def rhs(x: float, y: np.ndarray, s: complex, height: float, width: float) -> np.ndarray:
-    psi, dpsi = y
-    v = compact_support_potential(np.array([x]), height=height, width=width)[0]
-    return np.array([dpsi, (s**2 + v) * psi], dtype=complex)
-
-
-def rk4_path(x_grid: np.ndarray, y0: np.ndarray, s: complex, height: float, width: float) -> np.ndarray:
-    y = np.zeros((x_grid.size, 2), dtype=complex)
-    y[0] = y0
-    for i in range(x_grid.size - 1):
-        x = x_grid[i]
-        h = x_grid[i + 1] - x
-        k1 = rhs(x, y[i], s, height, width)
-        k2 = rhs(x + 0.5 * h, y[i] + 0.5 * h * k1, s, height, width)
-        k3 = rhs(x + 0.5 * h, y[i] + 0.5 * h * k2, s, height, width)
-        k4 = rhs(x + h, y[i] + h * k3, s, height, width)
-        y[i + 1] = y[i] + (h / 6.0) * (k1 + 2.0 * k2 + 2.0 * k3 + k4)
-    return y
-
-
-def wronskian_at_match(
-    s: complex,
-    x_left: np.ndarray,
-    x_right: np.ndarray,
-    match_index_left: int,
-    match_index_right: int,
-    height: float,
-    width: float,
-) -> complex:
-    left_boundary = np.array([np.exp(s * x_left[0]), s * np.exp(s * x_left[0])], dtype=complex)
-    right_boundary = np.array([np.exp(-s * x_right[0]), -s * np.exp(-s * x_right[0])], dtype=complex)
-
-    left_sol = rk4_path(x_left, left_boundary, s, height, width)
-    right_sol = rk4_path(x_right, right_boundary, s, height, width)
-
-    f_minus, df_minus = left_sol[match_index_left]
-    f_plus, df_plus = right_sol[match_index_right]
-    return f_minus * df_plus - df_minus * f_plus
-
-
-def find_local_minima(values: np.ndarray, alpha: np.ndarray, beta: np.ndarray, n_keep: int = 6):
-    mag = np.abs(values)
-    filtered = minimum_filter(mag, size=3, mode="nearest")
-    mask = np.isclose(mag, filtered)
-    candidates = np.argwhere(mask)
-    ranked = sorted(candidates, key=lambda ij: mag[tuple(ij)])[:n_keep]
-    out = []
-    for ia, ib in ranked:
-        out.append((alpha[ia], beta[ib], values[ia, ib], mag[ia, ib]))
-    return out
 
 
 def main() -> None:
@@ -80,28 +26,16 @@ def main() -> None:
     args = parser.parse_args()
 
     domain = args.domain
-    n_steps = 500 if args.fast else 900
-    x_left = np.linspace(-domain, 0.0, n_steps)
-    x_right = np.linspace(domain, 0.0, n_steps)
-    match_index_left = x_left.size - 1
-    match_index_right = x_right.size - 1
+    config = CompactSupportConfig(
+        height=args.height,
+        width=args.width,
+        domain=domain,
+        n_steps=260 if args.fast else 700,
+    )
 
-    alpha = np.linspace(-2.4, -0.05, 42 if args.fast else 80)
-    beta = np.linspace(0.1, 5.0, 56 if args.fast else 110)
-    values = np.zeros((alpha.size, beta.size), dtype=complex)
-
-    for i, a in enumerate(alpha):
-        for j, b in enumerate(beta):
-            s = a + 1j * b
-            values[i, j] = wronskian_at_match(
-                s,
-                x_left=x_left,
-                x_right=x_right,
-                match_index_left=match_index_left,
-                match_index_right=match_index_right,
-                height=args.height,
-                width=args.width,
-            )
+    alpha = np.linspace(-2.4, -0.05, 28 if args.fast else 72)
+    beta = np.linspace(0.1, 5.0, 38 if args.fast else 100)
+    values = scan_wronskian_grid(alpha, beta, config)
 
     minima = find_local_minima(values, alpha, beta)
 
@@ -151,4 +85,3 @@ def main() -> None:
 
 if __name__ == "__main__":
     main()
-

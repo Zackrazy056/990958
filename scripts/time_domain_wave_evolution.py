@@ -2,74 +2,18 @@ from pathlib import Path
 
 import matplotlib.pyplot as plt
 import numpy as np
-from scipy.optimize import curve_fit
+
+from compact_support_time_common import damped_cosine, evolve_compact_support_signal, fit_ringdown_window
 
 
 ROOT = Path(__file__).resolve().parents[1]
 OUTPUT = ROOT / "outputs"
 OUTPUT.mkdir(exist_ok=True)
 
-
-def compact_support_potential(x: np.ndarray, height: float = 12.0, width: float = 1.0) -> np.ndarray:
-    v = np.zeros_like(x)
-    mask = np.abs(x) < width
-    z = x[mask] / width
-    v[mask] = height * np.exp(-1.0 / (1.0 - z**2))
-    return v
-
-
-def damped_cosine(t: np.ndarray, amplitude: float, alpha: float, beta: float, phase: float) -> np.ndarray:
-    return amplitude * np.exp(alpha * t) * np.cos(beta * t + phase)
-
-
 def main() -> None:
-    x_min, x_max = -30.0, 30.0
-    dx = 0.05
-    courant = 0.45
-    dt = courant * dx
-    t_max = 55.0
-
-    x = np.arange(x_min, x_max + dx, dx)
-    t = np.arange(0.0, t_max + dt, dt)
-    v = compact_support_potential(x, height=12.0, width=1.0)
-
-    x0 = -10.0
-    sigma = 0.8
-    k0 = 3.0
-    psi0 = np.exp(-((x - x0) ** 2) / (2.0 * sigma**2)) * np.cos(k0 * (x - x0))
-    dpsi_dt0 = -np.gradient(psi0, dx)
-
-    lap0 = (np.roll(psi0, -1) - 2.0 * psi0 + np.roll(psi0, 1)) / dx**2
-    lap0[0] = 0.0
-    lap0[-1] = 0.0
-
-    psi_prev = psi0.copy()
-    psi = psi0 + dt * dpsi_dt0 + 0.5 * dt**2 * (lap0 - v * psi0)
-    psi[0] = 0.0
-    psi[-1] = 0.0
-
-    obs_x = 8.0
-    obs_idx = np.argmin(np.abs(x - obs_x))
-    signal = [psi0[obs_idx], psi[obs_idx]]
-
-    for _ in range(1, t.size - 1):
-        lap = (np.roll(psi, -1) - 2.0 * psi + np.roll(psi, 1)) / dx**2
-        psi_next = 2.0 * psi - psi_prev + dt**2 * (lap - v * psi)
-        psi_next[0] = 0.0
-        psi_next[-1] = 0.0
-        signal.append(psi_next[obs_idx])
-        psi_prev, psi = psi, psi_next
-
-    signal = np.asarray(signal)
-    t_signal = t[: signal.size]
-
-    fit_mask = (t_signal >= 18.0) & (t_signal <= 36.0)
+    x, t_signal, v, signal, obs_idx = evolve_compact_support_signal(12.0, 1.0)
+    params, _, fit_mask = fit_ringdown_window(t_signal, signal)
     fit_t = t_signal[fit_mask]
-    fit_y = signal[fit_mask]
-
-    p0 = [np.max(np.abs(fit_y)), -0.12, 2.0, 0.0]
-    bounds = ([0.0, -3.0, 0.1, -2.0 * np.pi], [10.0, -1e-4, 10.0, 2.0 * np.pi])
-    params, _ = curve_fit(damped_cosine, fit_t, fit_y, p0=p0, bounds=bounds, maxfev=20000)
     fit_curve = damped_cosine(fit_t, *params)
 
     fig, axes = plt.subplots(3, 1, figsize=(9, 10), sharex=False)
@@ -115,4 +59,3 @@ def main() -> None:
 
 if __name__ == "__main__":
     main()
-

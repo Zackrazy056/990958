@@ -1,0 +1,26 @@
+Compact-support frequency-domain root vs time-domain ringdown comparison
+parameter = height
+range = [8.0, 14.0]
+steps = 4
+fit_window_mode = adaptive
+
+height = 8.00000000
+  root_s = -0.98979205+1.87008690i, |W| = 1.30775019e-11
+  fit_window = [5.81500000, 8.81500000]
+  fit_s  = -0.54207510+1.54055844i
+  mismatch = 5.55913185e-01
+height = 10.00000000
+  root_s = -0.90954324+2.12605056i, |W| = 7.98890264e-12
+  fit_window = [5.79250000, 8.87096827]
+  fit_s  = -0.53952869+2.54568372i
+  mismatch = 5.59466488e-01
+height = 12.00000000
+  root_s = -0.84688489+2.33894580i, |W| = 9.07084435e-13
+  fit_window = [5.77000000, 9.07623443]
+  fit_s  = -0.53931880+2.59928796i
+  mismatch = 4.02957746e-01
+height = 14.00000000
+  root_s = -0.79622142+2.52429571i, |W| = 2.30526735e-13
+  fit_window = [5.74750000, 9.26410974]
+  fit_s  = -0.53853545+2.56853439i
+  mismatch = 2.61455774e-01

@@ -38,6 +38,14 @@ The goal is not only to "reproduce numbers", but to build a full understanding o
   Finite-interval normal modes.
 - [compact_support_qnm_scan.py](C:/Users/97747/GW%20QNM%20EMRI%20PROJECT/9909/scripts/compact_support_qnm_scan.py)
   Laplace-domain QNM scan for a compact-support toy potential.
+- [compact_support_qnm_rootfind.py](C:/Users/97747/GW%20QNM%20EMRI%20PROJECT/9909/scripts/compact_support_qnm_rootfind.py)
+  Damped complex-Newton solver for the true `W(s)=0` toy-model roots.
+- [compact_support_qnm_track.py](C:/Users/97747/GW%20QNM%20EMRI%20PROJECT/9909/scripts/compact_support_qnm_track.py)
+  Continuation-based tracking of toy QNM roots as the potential changes.
+- [compact_support_qnm_map2d.py](C:/Users/97747/GW%20QNM%20EMRI%20PROJECT/9909/scripts/compact_support_qnm_map2d.py)
+  2D continuation map over potential height and width.
+- [compact_support_root_vs_ringdown.py](C:/Users/97747/GW%20QNM%20EMRI%20PROJECT/9909/scripts/compact_support_root_vs_ringdown.py)
+  Direct comparison between frequency-domain toy roots and time-domain ringdown fits.
 - [time_domain_wave_evolution.py](C:/Users/97747/GW%20QNM%20EMRI%20PROJECT/9909/scripts/time_domain_wave_evolution.py)
   Time-domain wave evolution showing burst and ringdown.
 - [schwarzschild_potentials.py](C:/Users/97747/GW%20QNM%20EMRI%20PROJECT/9909/scripts/schwarzschild_potentials.py)
@@ -66,6 +74,10 @@ Run these from the workspace root:
 ```powershell
 python scripts/finite_string_modes.py
 python scripts/compact_support_qnm_scan.py --fast
+python scripts/compact_support_qnm_rootfind.py --fast
+python scripts/compact_support_qnm_track.py --fast --parameter height --start 8 --stop 14 --steps 5 --nroots 2
+python scripts/compact_support_qnm_map2d.py --fast --nh 4 --nw 4 --nroots 2
+python scripts/compact_support_root_vs_ringdown.py --fast --steps 4 --parameter height --start 8 --stop 14
 python scripts/time_domain_wave_evolution.py
 python scripts/schwarzschild_potentials.py
 python scripts/wkb_schwarzschild_qnm.py
